@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<CodeSnippets  
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">  
+    <CodeSnippet Format="1.0.0">  
+        <Header>  
+            <Title>Class with implicit string operator</Title>  
+            <Author>Devon Burriss</Author>  
+            <Description>Creates a class that can implicitly convert to and from string.</Description>
+            <Shortcut>impl</Shortcut>
+        </Header>
+        <Imports>  
+            <Import>  
+                <Namespace>System</Namespace>  
+            </Import>  
+        </Imports>  
+        <Snippet>
+            <Declarations>  
+                <Literal>  
+                    <ID>name</ID>   
+                    <ToolTip>Name of the class.</ToolTip>   
+                    <Default>MyImplicitType</Default>   
+                </Literal>
+            </Declarations>
+            <Code Language="csharp">  
+                <![CDATA[
+                    public class $name$
+                    {
+                        string Value { get; }
+                        public $name$(string value) { Value = value; }
+
+                        public static implicit operator string($name$ c)
+                            => c.Value;
+                        public static implicit operator $name$(string s)
+                            => new $name$(s);
+
+                        public override string ToString() => Value;
+                        public override int GetHashCode() => Value.GetHashCode();
+                        public override bool Equals(object obj)
+                        {
+                            if (Value == null || obj == null)
+                                return false;
+
+                            if (obj.GetType() == typeof(string))
+                            {
+                                var otherString = obj as string;
+                                return string.Equals(Value, otherString, StringComparison.Ordinal);
+                            }
+
+                            if (obj.GetType() == this.GetType())
+                            {
+                                string otherString = string.Format("{0}", obj);
+                                return string.Equals(Value, otherString, StringComparison.Ordinal);
+                            }
+
+                            return false;
+                        }
+                    }
+                ]]>  
+            </Code>  
+        </Snippet>  
+    </CodeSnippet>  
+</CodeSnippets>  
