@@ -1,6 +1,7 @@
 ﻿{
   "projects": [ 
-    "Serialization/HonestTypes.Serialization"
+    "Serialization/HonestTypes.Serialization",
+    "Return/HonestTypes.Return"
     ],
   "sdk": {
     "version": "1.0.1"
