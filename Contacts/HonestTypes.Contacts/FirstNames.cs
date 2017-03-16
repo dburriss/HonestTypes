@@ -5,10 +5,10 @@ namespace HonestTypes.Contacts
     public class FirstNames
     {
         string Value { get; }
-        public FirstNames(string value) { Value = value; }
+        public FirstNames(string value) { Value = value ?? string.Empty; }
 
         public static implicit operator string(FirstNames c)
-            => c.Value;
+            => c?.Value ?? string.Empty;
         public static implicit operator FirstNames(string s)
             => new FirstNames(s);
 

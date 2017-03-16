@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/dburriss/HonestTypes/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/dburriss/HonestTypes/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>serializtion</PackageTags>
+    <PackageTags>serializtion, implicit, explicit</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

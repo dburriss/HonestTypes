@@ -3,27 +3,36 @@ using HonestTypes.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DemoHonestTypes
 {
+    using LanguageExt;
+    using static LanguageExt.Prelude;
     class Program
     {
         static void Main(string[] args)
         {
-            PrintAnEmail();
-
-            FirstNames name = "Devon Aragorn";
-            string nameAsString = name;
-            Console.WriteLine(nameAsString);
             Email email = (Email)"test@test.com";
-            string emailAsString = (string)email;
-            Console.WriteLine(emailAsString);
-            string n = Serialize(name);
 
-            FirstNames fnamesObj = Deserialize<FirstNames>(n);
-            Console.WriteLine(n);
+            var personRepository = new PersonRepository();
+            var exceptionPerson = personRepository.Get(email);
 
-            DoSomeStuff("Burriss", name, email);
+            Person person = exceptionPerson.Match(
+                Exception: ex => new Person(),
+                Success: opt => opt.Match(
+                    None: () => new Person(),
+                    Some: p => p
+                )
+            );
+
+            var service = new PersonService();
+            var validatedPerson = service.Validate(person);
+
+            validatedPerson.Match(
+                Valid: p => Console.WriteLine($"{p.LastName}, {p.FirstNames} <{p.Email}>"),
+                Invalid: err => err.ToList().ForEach(x => Console.WriteLine(x.Message))
+            );
 
             Console.ReadKey();
         }
