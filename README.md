@@ -75,3 +75,15 @@ public class LastName
 ```
 
 For more details check out [this blog post](http://devonburriss.me/honest-arguments).
+
+## Return Types
+
+> Install-Package HonestTypes.Return
+
+Contains types for:
+
+* Error - representing errors
+* Validation<T> - representing multiple logic failures
+* Exceptional<T> - represent a result that might be an exception
+
+See [this blog post](http://devonburriss.me/honest-return-types) for usage details.
