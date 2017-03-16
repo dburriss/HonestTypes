@@ -6,10 +6,10 @@ namespace HonestTypes.Contacts
     public class LastName
     {
         string Value { get; }
-        public LastName(string value) { Value = value; }
+        public LastName(string value) { Value = value ?? string.Empty; }
 
         public static implicit operator string(LastName c)
-            => c.Value;
+            => c?.Value ?? string.Empty;
         public static implicit operator LastName(string s)
             => new LastName(s);
 

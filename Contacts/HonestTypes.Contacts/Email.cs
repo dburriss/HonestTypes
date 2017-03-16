@@ -7,16 +7,23 @@ namespace HonestTypes.Contacts
     {
         const string regexPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
         string Value { get; }
-        public Email(string value) {
-            if(!Regex.IsMatch(value, regexPattern, RegexOptions.IgnoreCase))
+        public bool IsValid { get { return IsEmailValid(Value); } }
+        public Email(string value)
+        {
+            if (!IsEmailValid(value))
             {
                 throw new ArgumentException($"{value} is not a valid email address.", nameof(value));
             }
             Value = value;
         }
 
+        private static bool IsEmailValid(string value)
+        {
+            return Regex.IsMatch(value, regexPattern, RegexOptions.IgnoreCase);
+        }
+
         public static explicit operator string(Email c)
-            => c.Value;
+            => c?.Value ?? string.Empty;
         public static explicit operator Email(string s)
             => new Email(s);
 
