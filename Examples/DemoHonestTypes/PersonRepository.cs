@@ -29,7 +29,7 @@ namespace DemoHonestTypes
 
         private Person QueryByEmail(Email email)
         {
-            return null;
+            return Person.Create("John", "Doe", email);
         }
     }
 }

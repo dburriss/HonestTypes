@@ -13,9 +13,9 @@ namespace DemoHonestTypes
 
             //collect all errors
             return Valid(person)
-                .Apply(ValidateFirstNames(person))
-                .Apply(ValidateLastName(person))
-                .Apply(ValidateEmail(person));
+                .Join(ValidateFirstNames(person))
+                .Join(ValidateLastName(person))
+                .Join(ValidateEmail(person));
 
             //short circuit on error
             return Valid(person)
