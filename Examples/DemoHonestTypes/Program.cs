@@ -13,6 +13,79 @@ namespace DemoHonestTypes
     {
         static void Main(string[] args)
         {
+            Func<Person, Contact> toContact = p => new Contact
+            {
+                Name = $"{p.FirstNames} {p.LastName}",
+                Email = (string)p.Email
+            };
+
+            Func<Contact, Option<Person>> toOptionPerson = c => {
+                if (c == null)
+                    return None;
+                else
+                    return Some(new Person
+                    {
+                        FirstNames = c.Name.Split(' ').Head(),
+                        LastName = string.Join(" ", c.Name.Split(' ').Tail()),
+                        Email = (Email)c.Email
+                    });
+            };
+
+            Person person = GetPerson();
+            var elevatedPerson = Option<Person>.Some(person);//return - raise to elevated world
+            
+            Option<Person> defaultedPerson = elevatedPerson.Bind(EnsureValues);//bind - apply function and returns result
+            Option<Contact> contact = defaultedPerson.Map(toContact);//map - 
+
+            Option<Person> validatedPerson = ValidatePerson(person);
+
+            Option<Person> p1 = contact.Bind(toOptionPerson);//bind - 
+            p1.Match(
+                Some: p => Console.WriteLine($"{p.FirstNames} {p.LastName} <{p.Email}>"),
+                None: () => Console.WriteLine("Unknown")
+            );
+
+            Console.ReadKey();
+        }
+
+        private static Option<Person> EnsureValues(Person person)
+        {
+            if (string.IsNullOrEmpty(person.FirstNames))
+                person.FirstNames = "John";
+
+            if (string.IsNullOrEmpty(person.LastName))
+                person.LastName = "Doe";
+
+            if (string.IsNullOrEmpty(person.LastName))
+                person.Email = (Email)"dead@dawn.com";
+
+            return Some(person);
+        }
+
+        private static Contact FromPerson(Person person)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Option<Person> ValidatePerson(Person person)
+        {
+            var service = new PersonService();
+            var validatedPerson = service.Validate(person);
+
+            return validatedPerson.Match(
+                Valid: p => {
+                    Console.WriteLine("Valid");
+                    return Some(p);
+                },
+                Invalid: err => {
+                    err.ToList().ForEach(x => Console.WriteLine(x.Message));
+                    return None;
+                }
+            );
+        }
+
+        private static Person GetPerson()
+        {
             Email email = (Email)"test@test.com";
 
             var personRepository = new PersonRepository();
@@ -25,16 +98,7 @@ namespace DemoHonestTypes
                     Some: p => p
                 )
             );
-
-            var service = new PersonService();
-            var validatedPerson = service.Validate(person);
-
-            validatedPerson.Match(
-                Valid: p => Console.WriteLine($"{p.LastName}, {p.FirstNames} <{p.Email}>"),
-                Invalid: err => err.ToList().ForEach(x => Console.WriteLine(x.Message))
-            );
-
-            Console.ReadKey();
+            return person;
         }
 
         private static T Deserialize<T>(string json) where T : class

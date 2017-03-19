@@ -62,7 +62,7 @@ namespace HonestTypes.Return
         public Unit Match(Action<IEnumerable<Error>> Invalid, Action<T> Valid)
            => Match(Invalid.ToFunc(), Valid.ToFunc());
 
-        public Validation<T> Apply(Validation<T> valT)
+        public Validation<T> Join(Validation<T> valT)
         {
             var value = this.Value;
             var errors = this.Errors;
@@ -71,14 +71,6 @@ namespace HonestTypes.Return
                     Invalid: (err) => Invalid(errors.Concat(err))
                 );
         }
-            
-           //=> valF.Match(
-           //   Valid: (f) => valT.Match(
-           //      Valid: (t) => Valid(f(t)),
-           //      Invalid: (err) => Invalid(err)),
-           //   Invalid: (errF) => valT.Match(
-           //      Valid: (_) => Invalid(errF),
-           //      Invalid: (errT) => Invalid(errF.Concat(errT))));
 
         public IEnumerator<T> AsEnumerable()
         {
