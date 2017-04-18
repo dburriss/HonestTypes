@@ -44,7 +44,7 @@ Task("Clean")
     foreach(var proj in projects)
     {
         var projDir = proj.GetDirectory();
-        var buildDir = Directory(projDir + "bin") + Directory(configuration);
+        var buildDir = Directory(projDir + "/bin") + Directory(configuration);
         CleanDirectory(buildDir);
     }    
 });

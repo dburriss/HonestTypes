@@ -1,11 +1,10 @@
 ﻿using System;
 using LanguageExt;
 using FunC;
-//using Unit = System.ValueTuple;
 
 namespace HonestTypes.Return
 {
-    public static partial class F
+    public static partial class Fun
     {
         public static Exceptional<T> Exceptional<T>(T value) => new Exceptional<T>(value);
     }

@@ -6,10 +6,10 @@ namespace HonestTypes.Return
     using FunC;
     using LanguageExt;
     using System.Linq;
-    using static F;
     using static LanguageExt.Prelude;
+    using static Fun;
 
-    public static partial class F
+    public static partial class Fun
     {
         public static Validation<T> Valid<T>(T value) => new Validation<T>(value);
 
@@ -83,6 +83,7 @@ namespace HonestTypes.Return
               : $"Invalid([{string.Join(", ", Errors)}])";
 
         public override bool Equals(object obj) => this.ToString() == obj.ToString(); // hack
+        public override int GetHashCode() => this.ToString().GetHashCode();
     }
 
     public static class Validation

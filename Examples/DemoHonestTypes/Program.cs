@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace DemoHonestTypes
 {
+    using HonestTypes.Return;
     using LanguageExt;
     using static LanguageExt.Prelude;
     class Program
@@ -45,7 +46,32 @@ namespace DemoHonestTypes
                 None: () => Console.WriteLine("Unknown")
             );
 
+            //try
+            GiveItATry().Match(
+                Exception: ex => Console.WriteLine(ex.Message),
+                Success: s => Console.WriteLine(s)
+            );
+
+            GiveItATryExt().Match(
+                Succ: s => Console.WriteLine(s),
+                Fail: ex => Console.WriteLine(ex.Message)
+            );
+
             Console.ReadKey();
+        }
+
+        private static Exceptional<string> GiveItATry()
+        {
+            var f = fun<string>(() => throw new Exception("something"));
+            
+            return Fun.Try(f).Run();
+        }
+
+        private static LanguageExt.Try<string> GiveItATryExt()
+        {
+            var f = fun<string>(() => throw new Exception("something"));
+
+            return Prelude.Try(f);
         }
 
         private static Option<Person> EnsureValues(Person person)

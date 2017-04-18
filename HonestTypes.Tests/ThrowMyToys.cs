@@ -7,7 +7,7 @@ namespace HonestTypes.Tests
     using System.Collections.Generic;
     using System.Linq;
     using static LanguageExt.Prelude;
-    using static F;
+    using static Fun;
 
     class ThrowMyToys
     {
@@ -28,7 +28,7 @@ namespace HonestTypes.Tests
         {
             Exceptional<string> result = new Exceptional<string>();
             var assign = fun<string>(() => "Xyz");
-            Try<string>(assign).Match(
+            Prelude.Try<string>(assign).Match(
                 Succ: x => result = x,
                 Fail: ex => result = ex
             );

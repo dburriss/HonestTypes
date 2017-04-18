@@ -26,10 +26,10 @@
                     public class $name$
                     {
                         string Value { get; }
-                        public $name$(string value) { Value = value; }
+                        public $name$(string value) { Value = value ?? string.Empty; }
 
                         public static implicit operator string($name$ c)
-                            => c.Value;
+                            => c?.Value ?? string.Empty;
                         public static implicit operator $name$(string s)
                             => new $name$(s);
 
