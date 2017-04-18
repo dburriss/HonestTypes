@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <Version>0.0.2</Version>
+    <Version>0.1.0</Version>
     <Authors>Devon Burriss</Authors>
     <Company>Devon Burriss</Company>
     <Description>Contains return types the reveal possiblities of executing code eg. Exceptional and Validation. Uses LanguageExt for some functional features.</Description>
@@ -20,10 +20,6 @@
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="1.9.7" />
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\FunC\FunC.csproj" />
   </ItemGroup>
 
 </Project>

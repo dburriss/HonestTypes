@@ -1,6 +1,6 @@
 ﻿namespace HonestTypes.Return
 {
-    public static partial class F
+    public static partial class Fun
     {
         public static Error Error(string message) => new Error(message);
     }

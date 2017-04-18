@@ -2,7 +2,7 @@
 
 namespace DemoHonestTypes
 {
-    using static F;
+    using static Fun;
 
     public class PersonService
     {

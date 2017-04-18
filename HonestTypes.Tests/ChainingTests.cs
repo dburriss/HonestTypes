@@ -1,14 +1,11 @@
 ﻿using HonestTypes.Return;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace HonestTypes.Tests
 {
     using HonestTypes.Contacts;
-    using static F;
-    using static LanguageExt.Prelude;
+    using static Fun;
     using static HonestTypes.Return.Validation;
     using LanguageExt;
 
