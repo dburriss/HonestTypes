@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <Version>0.1.0</Version>
     <Authors>Devon Burriss</Authors>
     <Company>Devon Burriss</Company>
@@ -16,7 +15,6 @@
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="1.9.7" />
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
