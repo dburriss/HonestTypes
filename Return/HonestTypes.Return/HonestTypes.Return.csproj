@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Devon Burriss</Authors>
     <Company>Devon Burriss</Company>
     <Description>Contains return types the reveal possiblities of executing code eg. Exceptional and Validation. Uses LanguageExt for some functional features.</Description>

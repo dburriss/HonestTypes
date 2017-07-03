@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <Version>0.0.1</Version>
+    <Version>0.1.0</Version>
     <Authors>Devon Burriss</Authors>
     <Description>Serializer for types with implicit or explicit conversions to string and</Description>
     <Copyright>Devon Burriss</Copyright>
