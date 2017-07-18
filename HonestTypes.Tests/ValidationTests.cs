@@ -91,5 +91,15 @@ namespace HonestTypes.Tests
 
             Assert.True(result);
         }
+
+        [Fact]
+        public void Join_InvalidWithValid_ContainsError()
+        {
+            var sut = Fun.Invalid<string>(Fun.Error("This is invalid."));
+
+            var result = sut.Join(Fun.Valid("Hello"));
+
+            Assert.False(result.IsValid);
+        }
     }
 }
