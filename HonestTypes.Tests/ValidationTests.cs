@@ -93,13 +93,59 @@ namespace HonestTypes.Tests
         }
 
         [Fact]
-        public void Join_InvalidWithValid_ContainsError()
+        public void Join_InvalidWithValid_IsInvalid()
         {
-            var sut = Fun.Invalid<string>(Fun.Error("This is invalid."));
+            var sut = Fun.Invalid<string>("This is invalid.");
 
             var result = sut.Join(Fun.Valid("Hello"));
 
             Assert.False(result.IsValid);
+        }
+
+        [Fact]
+        public void Join_ValidWithInvalid_IsInvalid()
+        {
+            var sut = Fun.Valid("Hello");
+
+            var result = sut.Join(Fun.Invalid("This is invalid."));
+
+            Assert.False(result.IsValid);
+        }
+
+        [Fact]
+        public void Join_InvalidWithInvalid_IsInvalid()
+        {
+            var sut = Fun.Invalid<string>("This is invalid");
+
+            var result = sut.Join(Fun.Invalid("This is also invalid."));
+
+            Assert.False(result.IsValid);
+        }
+        
+        [Fact]
+        public void Join_InvalidWithInvalid_ContainsAllErrors()
+        {
+            var sut = Fun.Invalid<string>("This is invalid.");
+
+            var result = sut.Join(Fun.Invalid("This is also invalid."));
+
+            var errors = result.Match(
+                Invalid: e => e,
+                Valid: _ => Enumerable.Empty<Error>()
+            );
+            
+            Assert.Contains(Fun.Error("This is invalid."), errors);
+            Assert.Contains(Fun.Error("This is also invalid."), errors);
+        }
+
+        [Fact]
+        public void Join_ValidWithValid_IsValid()
+        {
+            var sut = Fun.Valid("Hello");
+
+            var result = sut.Join(Fun.Valid("Hello"));
+
+            Assert.True(result.IsValid);
         }
     }
 }
