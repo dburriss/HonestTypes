@@ -66,10 +66,12 @@ namespace HonestTypes.Return
         {
             var value = this.Value;
             var errors = this.Errors;
-            return valT.Match(
-                    Valid: (t) => Valid<T>(value),
-                    Invalid: (err) => Invalid(errors.Concat(err))
-                );
+           return IsValid
+                     ? valT.Match(
+                        Valid: t => Valid(value),
+                        Invalid: err => Invalid(errors.Concat(err))
+                     )
+                     : Invalid(errors.Concat(valT.Errors));
         }
 
         public IEnumerator<T> AsEnumerable()
